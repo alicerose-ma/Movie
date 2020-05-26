@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         fetchNowPlayingMovie()
     }
     
+//    getJson Branchs
     func fetchNowPlayingMovie() {
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=c6daf34c1130b89e1e7821159af5b818&language=en-US&page=1")
         let task =  URLSession.shared.dataTask(with: url!) { data, response, error in
