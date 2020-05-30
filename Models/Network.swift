@@ -17,7 +17,7 @@ class NetWork {
     let api_key = "api_key=c6daf34c1130b89e1e7821159af5b818"
     
 
-    func fetchMovies(movieFeed: MovieFeed, completion: @escaping ([Movie]) -> Void) {
+    func fetchMovies(movieFeed: MovieFeed, completion: @escaping (String?,[Movie]) -> Void) {
         var urlString = ""
         switch movieFeed {
         case .nowPlaying:
@@ -30,13 +30,15 @@ class NetWork {
         let task =  URLSession.shared.dataTask(with: url!) { data, response, error in
             guard let data = data else {
                 print("err getting data")
+                completion("getting data error", [])
                 return
             }
             do {
                 let movies = try JSONDecoder().decode(MovieFeedResult.self, from: data)
-                completion(movies.results)
+                completion(nil, movies.results)
             } catch let error {
                 print(error)
+                completion("decode error", [])
             }
         }
         
